@@ -1,0 +1,193 @@
+
+/* Keep only animation helpers — visual layout is handled by Tailwind classes */
+/* Make reveal visible by default so content shows even if JS hasn't run or observer doesn't trigger. */
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+.reveal-visible{opacity:1;transform:translateY(0)}
+
+/* If you want the hidden -> visible animation, toggle `.reveal-hidden` on the element and let JS remove it or add `.reveal-visible`. */
+.reveal-hidden{opacity:0;transform:translateY(16px)}
+
+/* Orbit animation for project cards */
+.card-orbit-wrapper{display:inline-block;will-change:transform;animation:orbit 6s linear infinite}
+.card-orbit-wrapper article{transform-origin:center;}
+
+@keyframes orbit{
+	0%{transform:translate(0px,0px) rotate(0deg)}
+	25%{transform:translate(6px,-6px) rotate(3deg)}
+	50%{transform:translate(0px,-10px) rotate(0deg)}
+	75%{transform:translate(-6px,-6px) rotate(-3deg)}
+	100%{transform:translate(0px,0px) rotate(0deg)}
+}
+
+/* Prefer reduced motion: disable continuous animation */
+@media (prefers-reduced-motion: reduce){
+	.card-orbit-wrapper{animation: none !important}
+}
+
+/* Orbit stage (md and up). Uses CSS variables: --angle (deg), --delay (s), --radius (px) */
+.orbit-stage{position:relative;display:block}
+.orbit-position{--radius:120px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.orbit-rotator{position:absolute;left:50%;top:50%;transform-origin:-var(--radius) 0;animation:orbit-rotate 10s linear infinite}
+.orbit-card{position:relative;left:calc(var(--radius));top:calc(-1 * (var(--radius) / 6));transform:translate(-50%,-50%)}
+
+/* Set each position by rotating the rotator by the desired angle (initial placement). The animation rotates further to create circular motion */
+.orbit-position{--angle:0deg}
+.orbit-position .orbit-rotator{transform:rotate(var(--angle));}
+
+@keyframes orbit-rotate{
+	from{transform:rotate(var(--angle))}
+	to{transform:rotate(calc(var(--angle) + 360deg))}
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce){
+	.orbit-rotator{animation:none}
+}
+
+/* Marquee track for md+ screens */
+.marquee{overflow:hidden;padding:6px 0}
+.marquee-track{display:flex;gap:4px;align-items:center;white-space:nowrap;animation:marquee-left linear infinite}
+.marquee-item{flex:0 0 auto}
+
+/* Bigger project cards */
+.project-card{
+	min-width:330px; /* slightly narrower for tighter fit */
+	min-height:132px;
+	padding:1rem; /* larger padding than original p-4 */
+}
+
+/* On very large screens make cards even bigger */
+@media (min-width:1200px){
+	.project-card{ min-width:420px; min-height:160px }
+}
+
+/* pause on hover */
+.marquee:hover .marquee-track{animation-play-state:paused}
+
+@keyframes marquee-left{
+	0%{transform:translateX(0%)}
+	100%{transform:translateX(-50%)}
+}
+
+@media (prefers-reduced-motion: reduce){
+	.marquee-track{animation:none}
+}
+
+/* Experience column styling: make it taller and more prominent */
+.experience-column{min-height:420px;display:flex;align-items:flex-start}
+.experience-item{padding:1.25rem}
+
+@media (min-width:1024px){
+	.experience-column{min-height:620px}
+	.experience-item{padding:1.5rem}
+}
+
+/* Center an experience item while it's in the viewport on larger screens */
+@media (min-width:768px){
+	.experience-item{background-clip:padding-box}
+	.experience-inner{position:sticky;top:50%;transform:translateY(-50%);}
+}
+
+/* Centered experience animation */
+.experience-item{transition:transform .35s ease, box-shadow .35s ease, background-color .25s ease}
+.experience-item.centered{transform:scale(1.02);box-shadow:0 12px 30px rgba(2,6,23,0.6);background-color:rgba(255,255,255,0.04)}
+
+/* timeline marker on the left */
+.experience-column{position:relative}
+.experience-column::before{content:'';position:absolute;left:18px;top:24px;bottom:24px;width:2px;background:linear-gradient(180deg,#6fb0ff,transparent);opacity:0.18}
+.experience-item{position:relative}
+.experience-item::before{content:'';position:absolute;left:10px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:9999px;background:#6fb0ff;opacity:0.28;transition:transform .25s ease, opacity .25s ease}
+.experience-item.centered::before{transform:translateY(-50%) scale(1.25);opacity:1}
+
+/* Education cards styling + animations */
+.education-card{opacity:0;transform:translateY(10px);transition:opacity .5s ease, transform .5s ease, box-shadow .35s ease}
+.education-card.reveal-visible{opacity:1;transform:translateY(0);}
+.education-card{background-clip:padding-box}
+.edu-anim{will-change:opacity, transform}
+
+@media (prefers-reduced-motion: reduce){
+	.education-card, .edu-anim{transition:none;transform:none;opacity:1}
+}
+
+/* Vertical timeline for Education */
+.education-timeline{position:relative;padding-left:48px}
+.education-timeline .timeline-line{position:absolute;left:18px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#6fb0ff,transparent);opacity:0.14}
+.timeline-list{list-style:none;margin:0;padding:0}
+.timeline-item{display:flex;align-items:flex-start;margin-bottom:1.25rem;gap:12px}
+.timeline-marker{width:14px;height:14px;border-radius:9999px;background:#6fb0ff;flex:0 0 auto;margin-top:6px;box-shadow:0 0 0 4px rgba(111,176,255,0.06);transition:transform .25s ease, box-shadow .25s ease}
+.timeline-content{flex:1;}
+.timeline-item.reveal-visible .timeline-marker{transform:scale(1.2);box-shadow:0 8px 20px rgba(6,18,50,0.35);}
+
+@media (prefers-reduced-motion: reduce){
+	.timeline-marker{transition:none}
+}
+
+/* Timeline draw animation */
+.reveal.reveal-visible .education-timeline .timeline-line{
+	transform-origin: top;
+	animation: drawLine 700ms ease forwards;
+}
+
+@keyframes drawLine{
+	from{transform:scaleY(0);opacity:0}
+	to{transform:scaleY(1);opacity:0.14}
+}
+
+/* Staggered pop-in for timeline content */
+.timeline-content{opacity:0;transform:translateY(10px) scale(.995);transition:opacity .4s ease, transform .45s cubic-bezier(.2,.9,.2,1)}
+.timeline-item.reveal-visible .timeline-content{opacity:1;transform:translateY(0) scale(1)}
+.timeline-list .timeline-item:nth-child(1) .timeline-content{transition-delay:120ms}
+.timeline-list .timeline-item:nth-child(2) .timeline-content{transition-delay:220ms}
+.timeline-list .timeline-item:nth-child(3) .timeline-content{transition-delay:320ms}
+.timeline-list .timeline-item:nth-child(4) .timeline-content{transition-delay:420ms}
+.timeline-list .timeline-item:nth-child(5) .timeline-content{transition-delay:520ms}
+.timeline-list .timeline-item:nth-child(6) .timeline-content{transition-delay:620ms}
+
+/* Marker pulse when centered/visible */
+.timeline-item.reveal-visible .timeline-marker{animation:markerPulse 1200ms ease-in-out both}
+@keyframes markerPulse{
+	0%{transform:scale(1);box-shadow:0 0 0 4px rgba(111,176,255,0.06);opacity:0.9}
+	50%{transform:scale(1.25);box-shadow:0 14px 30px rgba(6,18,50,0.22);opacity:1}
+	100%{transform:scale(1);box-shadow:0 0 0 4px rgba(111,176,255,0.06);opacity:0.9}
+}
+
+/* Hover lift for content on desktop */
+.timeline-content:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 18px 40px rgba(2,6,23,0.45)}
+
+@media (prefers-reduced-motion: reduce){
+	.reveal.reveal-visible .education-timeline .timeline-line,
+	.timeline-content,.timeline-item .timeline-content,.timeline-item .timeline-marker{animation:none;transition:none;transform:none;opacity:1}
+}
+
+/* Small vertical spacing between dashboard categories/sections */
+.dashboard-section{margin-bottom:0.85rem}
+
+/* Larger typography and spacing for dashboard content */
+.dashboard-root{font-size:1.03rem;line-height:1.6}
+.dashboard-root h2{font-size:1.6rem}
+.dashboard-root h4{font-size:1.05rem}
+
+/* increase spacing between major categories */
+.dashboard-section{margin-bottom:1.6rem}
+
+/* slightly larger card padding for readability */
+.project-card, .timeline-content, .education-card, .experience-item{padding:1.1rem}
+.project-card{padding:1.25rem}
+
+/* increase gap inside experience column */
+.experience-column ul.space-y-4 > li{margin-bottom:1.25rem}
+
+/* Force consistent left alignment inside cards */
+.project-card, .timeline-content, .education-card, .experience-inner {
+	text-align: left;
+}
+
+/* Center content specifically for project cards */
+.project-card{display:flex;flex-direction:column;align-items:center;text-align:center}
+.project-card .text-slate-400, .project-card .text-slate-200 { text-align:center }
+.project-card a { align-self:center }
+
+/* Ensure dates (which use text-right) remain right-aligned where present */
+.timeline-content .text-right, .experience-item .text-right { text-align: right }
+
+
