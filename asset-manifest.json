@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/my-react-app/static/css/main.7f9bf31b.css",
-    "main.js": "/my-react-app/static/js/main.f8deef34.js",
-    "static/js/534.e5f45e83.chunk.js": "/my-react-app/static/js/534.e5f45e83.chunk.js",
-    "static/js/453.311b3dbc.chunk.js": "/my-react-app/static/js/453.311b3dbc.chunk.js",
-    "static/media/MyPic.png": "/my-react-app/static/media/MyPic.11f7b275caed57b47696.png",
-    "index.html": "/my-react-app/index.html",
-    "main.7f9bf31b.css.map": "/my-react-app/static/css/main.7f9bf31b.css.map",
-    "main.f8deef34.js.map": "/my-react-app/static/js/main.f8deef34.js.map",
-    "534.e5f45e83.chunk.js.map": "/my-react-app/static/js/534.e5f45e83.chunk.js.map",
-    "453.311b3dbc.chunk.js.map": "/my-react-app/static/js/453.311b3dbc.chunk.js.map"
+    "main.css": "/Jack1065.github.io/static/css/main.7f9bf31b.css",
+    "main.js": "/Jack1065.github.io/static/js/main.77b3e864.js",
+    "static/js/534.e5f45e83.chunk.js": "/Jack1065.github.io/static/js/534.e5f45e83.chunk.js",
+    "static/js/453.311b3dbc.chunk.js": "/Jack1065.github.io/static/js/453.311b3dbc.chunk.js",
+    "static/media/MyPic.png": "/Jack1065.github.io/static/media/MyPic.11f7b275caed57b47696.png",
+    "index.html": "/Jack1065.github.io/index.html",
+    "main.7f9bf31b.css.map": "/Jack1065.github.io/static/css/main.7f9bf31b.css.map",
+    "main.77b3e864.js.map": "/Jack1065.github.io/static/js/main.77b3e864.js.map",
+    "534.e5f45e83.chunk.js.map": "/Jack1065.github.io/static/js/534.e5f45e83.chunk.js.map",
+    "453.311b3dbc.chunk.js.map": "/Jack1065.github.io/static/js/453.311b3dbc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7f9bf31b.css",
-    "static/js/main.f8deef34.js"
+    "static/js/main.77b3e864.js"
   ]
 }
