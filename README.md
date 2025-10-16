@@ -6,7 +6,7 @@ A modern, interactive **personal portfolio website** built with **React**, **Typ
 
 ## 🚀 Features
 
-- **Dynamic 3D visuals** powered by Three.js  
+- **Dynamic visuals** powered by Three.js  
 - **Responsive UI** with Tailwind CSS  
 - **Type-safe components** using TypeScript  
 - **Smooth animations** and transitions  
